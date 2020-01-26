@@ -17,8 +17,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('courses', 'CourseController@index');
-Route::get('courses/{course}', 'CourseController@show');
-Route::post('courses', 'CourseController@store');
-Route::patch('courses/{course}', 'CourseController@update');
-Route::delete('courses/{course}', 'CourseController@delete');
+Route::group(['middleware' => 'auth.jwt'], function () {
+    Route::get('courses', 'CourseController@index');
+    Route::get('courses/{course}', 'CourseController@show');
+    Route::post('courses', 'CourseController@store');
+    Route::patch('courses/{course}', 'CourseController@update');
+    Route::delete('courses/{course}', 'CourseController@delete')
+});;
