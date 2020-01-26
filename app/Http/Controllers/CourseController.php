@@ -9,7 +9,7 @@ use App\Repositories\CourseRepositoryInterface;
 
 class CourseController extends Controller
 {
-    private $user;
+    protected $user;
 
     private $courseRepository;
 
@@ -22,7 +22,7 @@ class CourseController extends Controller
 
     public function index()
     {
-        $courses = $this->courseRepository->all();
+        $courses = $this->user->courses()->get(['name'])->toArray();
         
         return response($courses, 200);
     }
@@ -33,7 +33,9 @@ class CourseController extends Controller
             'name' => $request->name
         ];
 
-        $course = $this->courseRepository->store($course, $data);
+        //$course = $this->courseRepository->store($course, $data);
+
+        $course = $this->user->courses()->create($data);
 
         return response()->json([
             'course'  => $course,

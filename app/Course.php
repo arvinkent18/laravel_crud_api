@@ -9,8 +9,14 @@ class Course extends Model
     protected $table = 'courses';
 
     protected $fillable = [
-        'name'
+        'name',
+        'user_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function students()
     {
