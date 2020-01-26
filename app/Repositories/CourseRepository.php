@@ -2,33 +2,33 @@
 
 namespace App\Repositories;
 
-use App\Course;
 use App\Repositories\CourseRepositoryInterface;
 
 class CourseRepository implements CourseRepositoryInterface
 {
-    public function all()
+    public function all($user)
     {
-        return Course::all();
+        return $user->courses()->get()->toArray();
     }
 
-    public function store($course, array $data)
+    public function store($user, array $data)
     {
-        return $course->create($data);
+        return $user->courses()->create($data);
     }
 
-    public function show($course)
+    public function show($user, $course)
     {
-        return $course;
+        return $user->courses()->find($course);
     }
 
-    public function update($course, array $data)
+    public function update($user, $course, array $data)
     {
-        return $course->update($data);
+        $targetCourse = $user->courses()->find($course->id);
+        return $targetCourse->update($data);
     }
 
-    public function delete($course)
+    public function delete($user, $course)
     {
-        return $course->delete();
+        return $user->find($course)->delete();
     }
 }

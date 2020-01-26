@@ -11,7 +11,7 @@ class CourseController extends Controller
 {
     protected $user;
 
-    private $courseRepository;
+    protected $courseRepository;
 
     public function __construct(CourseRepositoryInterface $courseRepository)
     {
@@ -22,7 +22,7 @@ class CourseController extends Controller
 
     public function index()
     {
-        $courses = $this->user->courses()->get(['name'])->toArray();
+        $courses = $this->courseRepository->all($this->user);
         
         return response($courses, 200);
     }
@@ -33,9 +33,7 @@ class CourseController extends Controller
             'name' => $request->name
         ];
 
-        //$course = $this->courseRepository->store($course, $data);
-
-        $course = $this->user->courses()->create($data);
+        $course = $this->courseRepository->store($this->user, $data);
 
         return response()->json([
             'course'  => $course,
@@ -46,6 +44,7 @@ class CourseController extends Controller
     public function show(Course $course)
     {
         if ($course->exists()) {
+            $course = $this->courseRepository->show($this->user, $course);
             return response($course, 200);
         } else {
             return response()->json([
@@ -57,11 +56,13 @@ class CourseController extends Controller
     public function update(Request $request, Course $course)
     {
         if ($course->exists()) {
-            $course->update([
+            $data = [
                 'name' => $request->name
-            ]);
+            ];
+            $updateCourse = $this->courseRepository->update($this->user, $course, $data);
 
             return response()->json([
+                'course' => $updateCourse,
                 'message' => 'Course updated successfuly'
             ], 200);
         } else {
