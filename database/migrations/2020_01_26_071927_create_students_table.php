@@ -21,6 +21,11 @@ class CreateStudentsTable extends Migration
             $table->string('last_name');
             $table->integer('age');
             $table->timestamps();
+
+            $table->foreign('course_id')
+                ->references('id')
+                ->on('courses')
+                ->onDelete('cascade');
         });
     }
 

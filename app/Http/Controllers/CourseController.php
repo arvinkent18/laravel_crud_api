@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use JWTAuth;
 use App\Course;
 use Illuminate\Http\Request;
 use App\Repositories\CourseRepositoryInterface;
 
 class CourseController extends Controller
 {
+    private $user;
+
     private $courseRepository;
 
     public function __construct(CourseRepositoryInterface $courseRepository)
     {
+        $this->user = JWTAuth::parseToken()->authenticate();
+
         $this->courseRepository = $courseRepository;
     }
 
