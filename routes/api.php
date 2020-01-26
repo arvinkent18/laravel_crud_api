@@ -22,5 +22,5 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::get('courses/{course}', 'CourseController@show');
     Route::post('courses', 'CourseController@store');
     Route::patch('courses/{course}', 'CourseController@update');
-    Route::delete('courses/{course}', 'CourseController@delete')
-});;
+    Route::delete('courses/{course}', 'CourseController@delete');
+});
