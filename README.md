@@ -14,6 +14,18 @@ php artisan migrate
 
 ## Endpoints
 
+### Register account with JWT Authentication
+``` bash
+POST api/register
+name/email/password
+```
+
+### Login account with JWT Authentication
+```
+POST /api/login
+email/password/token
+```
+
 ### List all courses
 ``` bash
 GET api/courses?token=<token_key_from_jwt>
@@ -24,13 +36,13 @@ GET api/courses?token=<token_key_from_jwt>
 GET api/courses/{id}?token=<token_key_from_jwt>
 ```
 
-### Store new course
+### Create new course
 ``` bash
 POST api/courses
 name/token
 ```
 
-### Update course
+### Update existing course
 ``` bash
 PATCH api/courses/{id}?token=<token_key_from_jwt>
 ```
@@ -49,5 +61,5 @@ Arvin Kent S. Lazaga
 ### Version
 1.0.0
 
-### Tseting
+### Testing
 Unit Testing in ongoing.
