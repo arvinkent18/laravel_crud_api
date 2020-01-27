@@ -22,7 +22,7 @@ name/email/password
 
 ### Login account with JWT Authentication
 ```
-POST /api/login
+POST api/login
 email/password/token
 ```
 
